@@ -1,0 +1,225 @@
+// ==UserScript==
+
+// @name         hack full hero má»Ÿ map vĂ  thĂ¡p
+
+// @namespace    Violentmonkey Scripts
+
+// @version      2025-07-08
+
+// @description  try to take over the world!
+
+// @author       You
+
+// @match        https://gtd-cdn.gamehollywood.com/GTD_service/index_gh.html*
+
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=gamehollywood.com
+
+// @grant        none
+
+// ==/UserScript==
+
+(function  () {
+
+  'use strict';
+
+  const log = (msg) => console.log('[HACK]', msg);
+
+  const waitGameLoad = setInterval(() => {
+    if (
+      typeof window.STORAGE === 'object' &&
+
+      typeof window.PHP === 'object' &&
+
+      STORAGE.hero_bou && STORAGE.tower_bou
+
+    ) {
+
+      clearInterval(waitGameLoad);
+
+      log('Ă„ÂÄ‚Â£ phÄ‚Â¡t hiĂ¡Â»â€¡n STORAGE & PHP, bĂ¡ÂºÂ¯t Ă„â€˜Ă¡ÂºÂ§u hack...');
+
+      // 1. ChĂ¡ÂºÂ·n gĂ¡Â»Â­i dĂ¡Â»Â¯ liĂ¡Â»â€¡u lÄ‚Âªn server
+
+      PHP.put_userinfo_hero = () => log('ChĂ¡ÂºÂ·n gĂ¡Â»Â­i hero.');
+
+      PHP.put_userinfo_tower = () => log('ChĂ¡ÂºÂ·n gĂ¡Â»Â­i tower.');
+
+      // 2. ChĂ¡Â»Ân hero
+
+      STORAGE.hero_selected[1] = 40;
+
+      STORAGE.hero_selected[2] = 42;
+
+      STORAGE.hero_selected[3] = 42;
+
+      STORAGE.hero_selected[4] = 40;
+
+      STORAGE.hero_selected[5] = 41;
+
+      STORAGE.hero_selected_max = 5;
+
+      // 3. Hero level
+
+      for (let i = 1; i < 31; i++) {
+
+        STORAGE.hero_bou[i].buy = 1;
+
+        STORAGE.hero_bou[i].killexp = 0;
+
+        STORAGE.hero_bou[i].level = 180;
+
+      }
+
+      for (let i = 31; i < 37; i++) {
+
+        STORAGE.hero_bou[i].buy = 1;
+
+        STORAGE.hero_bou[i].killexp = 0;
+
+        STORAGE.hero_bou[i].level = 200;
+
+      }
+
+      HERO_AWAKE.fenrir_color = "red"
+
+      for (let i = 37; i < 43; i++) {
+
+        STORAGE.hero_bou[i].buy = 1;
+
+        STORAGE.hero_bou[i].killexp = 0;
+
+        STORAGE.hero_bou[i].level = 60;
+
+      }
+
+      for (let i = 43; i < 46; i++) {
+
+        STORAGE.hero_bou[i].buy = 1;
+
+        STORAGE.hero_bou[i].killexp = 0;
+
+        STORAGE.hero_bou[i].level = 50;
+
+      }
+
+      for (let i = 46; i < 52; i++) {
+
+        STORAGE.hero_bou[i].buy = 1;
+
+        STORAGE.hero_bou[i].killexp = 0;
+
+        STORAGE.hero_bou[i].level = 180;
+
+      }
+
+      // 4. Tower chĂ¡Â»â€°nh
+
+      const towerIDs = [6034, 6035, 6036, 6025, 6026, 6027];
+
+      for (let i = 3; i < 9; i++) {
+
+        STORAGE.tower_bou[i].card = 1;
+
+        STORAGE.tower_bou[i].level = 1;
+
+        STORAGE.tower_bou[i].tower_bunho_g = towerIDs[i - 3];
+
+      }
+
+      for (let i = 9; i < 45; i++) {
+
+        STORAGE.tower_bou[i].card = 0;
+
+        STORAGE.tower_bou[i].level = 5
+
+        STORAGE.tower_bou[i].tower_bunho_g = 4992 + i;
+
+      }
+
+      // 5. Buff stats cho tĂ¡ÂºÂ¥t cĂ¡ÂºÂ£ tower
+
+      const towerArrays = [window.TOWER_D, window.TOWER_C, window.TOWER_B, window.TOWER_A, window.TOWER_S, window.TOWER_SS];
+
+      for (const arr of towerArrays) {
+
+        if (!arr) continue;
+
+        for (let i = 1; i < arr.length; i++) {
+
+          if (!arr[i]) continue;
+
+          arr[i].AW = 0;
+
+          arr[i].RADIUS = 1500;
+
+          arr[i].MINERAL_BUILD = -10000000000000000000000000000000000000;
+
+        }
+
+      }
+
+      // 6. Hack Gulveig Clone PvP
+
+      for (let i = 1; i < PVP.ATTACK.length; i++) {
+
+        PVP.ATTACK[i].enemy_bunho = 104;
+
+        PVP.ATTACK[i].need_point = 0;
+
+      }
+
+      for (let i = 1; i < ENEMY.length; i++)
+
+      PVP.GAMEOVER_COUNT = 999999999999999999999999;
+
+      PVP.GAMEOVER_COUNT_PVP = 999999999999999999999999;
+
+      // 7. Hack Gulveig
+
+      // 9000
+
+      for (let i = 1; i < MYTHS_QUEST_WEEKLY.length; i++) {
+
+        MYTHS_QUEST_WEEKLY[i].goal = 0;             // MĂ¡Â»Â¥c tiÄ‚Âªu = 0 (hoÄ‚ n thÄ‚ nh ngay)
+
+        MYTHS_QUEST_WEEKLY[i].status = 0;           // TrĂ¡ÂºÂ¡ng thÄ‚Â¡i = 0
+
+        MYTHS_QUEST_WEEKLY[i].arrive = 0;           // Ă„ÂÄ‚Â¡nh dĂ¡ÂºÂ¥u Ă„â€˜Ä‚Â£ hoÄ‚ n thÄ‚ nh (Ă„â€˜Ă¡Â»Æ’ Ă„â€˜Ă†Â°Ă¡Â»Â£c nhĂ¡ÂºÂ­n)
+
+        MYTHS_QUEST_WEEKLY[i].gold = 0;
+
+        MYTHS_QUEST_WEEKLY[i].dia = 0;
+
+        MYTHS_QUEST_WEEKLY[i].magic = 1800;          // ThĂ†Â°Ă¡Â»Å¸ng magic = 1800
+
+        MYTHS_QUEST_WEEKLY[i].soul = 0;
+
+        MYTHS_QUEST_WEEKLY[i].tower = 0;
+
+        MYTHS_QUEST_WEEKLY[i].ruby = 0;
+
+      }
+
+      // 8. Hack Speed
+
+      // INTERVAL_MS_x1 = 222222222222222222222;
+
+      // INTERVAL_MS_x2 = 222222222222222222222;
+
+      // INTERVAL_MS_x3 = 222222222222222222222;
+
+      // 9. Hack Map
+
+      for (let i = 1; i < STORAGE.stage_easy.length; i++) {
+
+        STORAGE.stage_easy[i] = "A"
+
+      }
+
+      log('Ă¢Å“â€¦ Hack hoÄ‚ n tĂ¡ÂºÂ¥t!');
+
+    }
+
+  }, 1000); // kiĂ¡Â»Æ’m tra mĂ¡Â»â€”i 1 giÄ‚Â¢y
+
+})();
